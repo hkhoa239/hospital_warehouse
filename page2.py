@@ -6,11 +6,16 @@ import matplotlib.pyplot as plt
 from xgboost import XGBClassifier
 from sqlalchemy import create_engine
 import shap
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+connection_string = os.getenv('DATABASE_URL')
 
 # Kết nối đến database trên Neon
 @st.cache_resource
 def connect_db():
-    engine = create_engine("postgresql://hospital_owner:npg_J16pOhzLtlIe@ep-purple-haze-a1ykx9rh-pooler.ap-southeast-1.aws.neon.tech/hospital?sslmode=require")
+    engine = create_engine(connection_string)
     return engine
 
 # Load dữ liệu từ các bảng
